@@ -1,3 +1,7 @@
 chaos_env/
 *.pyc
 __pycache__/
+venv_dhm/
+chaos_env/
+.DS_Store
+__pycache__/
