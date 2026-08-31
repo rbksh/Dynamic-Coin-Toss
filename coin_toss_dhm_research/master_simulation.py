@@ -1,5 +1,5 @@
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 import matplotlib.animation as animation
 from physics_engine import calculate_rigid_body_kinematics, analyze_law_of_small_numbers
 from pinn_model import train_physics_decoder
