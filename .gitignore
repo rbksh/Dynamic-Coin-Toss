@@ -5,3 +5,6 @@ venv_dhm/
 chaos_env/
 .DS_Store
 __pycache__/
+dof_integrated_venv/
+*venv*/
+dhm-research-test-with-dof/dof_integrated_venv/
