@@ -49,14 +49,15 @@ def run_animated_suite():
 
     # 3. Efficiency Calculation
     ax_eff.set_xlim(0, 100)
-    ax_eff.set_ylim(-100, 100)
+    # Using a symmetrical Y-axis limit for cleaner scaling
+    ax_eff.set_ylim(-500, 100) 
     ax_eff.set_title("Rolling Model Efficiency (%)")
     ax_eff.axhline(0, color='k', linestyle=':')
     line_eff, = ax_eff.plot([], [], 'g-')
 
     # 4. Efficiency vs Error (Phase Space)
     ax_eff_err.set_xlim(0, np.max(abs_err[:200]) * 1.2)
-    ax_eff_err.set_ylim(-100, 100)
+    ax_eff_err.set_ylim(-500, 100)
     ax_eff_err.set_title("Phase Space: Efficiency vs Error")
     scatter_eff_err = ax_eff_err.scatter([], [], c='b', s=10)
 
@@ -71,21 +72,21 @@ def run_animated_suite():
 
     # Animation Arrays
     frames = min(200, len(y_true))
-    x_data = []
 
     def update(frame):
-        x_data.append(frame)
+        # FIX: Generate exact X-axis array to prevent length mismatch from secret double-calls
+        current_x = np.arange(frame + 1)
         
         # Shift windows for scrolling effect
         if frame > 100:
             for ax in [ax_pred, ax_err, ax_eff, ax_rate]:
                 ax.set_xlim(frame - 100, frame)
 
-        line_true.set_data(x_data, y_true[:frame+1])
-        line_pred.set_data(x_data, y_pred[:frame+1])
-        line_err.set_data(x_data, abs_err[:frame+1])
-        line_eff.set_data(x_data, efficiencies[:frame+1])
-        line_rate.set_data(x_data, eff_rate[:frame+1])
+        line_true.set_data(current_x, y_true[:frame+1])
+        line_pred.set_data(current_x, y_pred[:frame+1])
+        line_err.set_data(current_x, abs_err[:frame+1])
+        line_eff.set_data(current_x, efficiencies[:frame+1])
+        line_rate.set_data(current_x, eff_rate[:frame+1])
         
         scatter_eff_err.set_offsets(np.c_[abs_err[:frame+1], efficiencies[:frame+1]])
         
